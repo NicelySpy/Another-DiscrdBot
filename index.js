@@ -10,4 +10,5 @@ bot.categories = fs.readdirSync("./commands/");
 ["command","event"].forEach(handler => {
     require(`./handlers/${handler}`)(bot);
 });
-bot.login(config.Token)
+const token = require(`./token.json`)
+bot.login(token.Token)
