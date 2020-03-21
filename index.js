@@ -2,9 +2,7 @@ const Discord = require("discord.js");
 const fs = require("fs");
 const config = require('./config.json')
 const prefix = config.prefix;
-const bot = new Discord.Client({
-   disableMentions:'everyone'
-});
+const bot = new Discord.Client({disableMentions:'everyone'});
 bot.prefix = prefix;
 bot.commands = new Discord.Collection();
 bot.aliases = new Discord.Collection();
