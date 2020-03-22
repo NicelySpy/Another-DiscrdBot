@@ -17,7 +17,7 @@ module.exports={
             .setURL(`https://reddit.com/r/${Subreddit}`)
             message.channel.send(Embed)
         }catch(err){
-            return message.channel.send(err)
+             message.channel.send(err)
         }
     }
 }
