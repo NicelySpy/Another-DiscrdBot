@@ -12,4 +12,3 @@ bot.categories = fs.readdirSync("./commands/");
 });
 const token = require(`./token.json`)
 bot.login(token.Token)
-//Hi!
