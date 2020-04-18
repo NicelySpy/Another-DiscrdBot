@@ -7,13 +7,15 @@ bot.prefix = prefix;
 bot.commands = new Discord.Collection();
 bot.aliases = new Discord.Collection();
 bot.categories = fs.readdirSync("./commands/");
-["command"].forEach(handler => {
+["command","server"].forEach(handler => {
     require(`./handlers/${handler}`)(bot);
 });
 bot.on('ready',()=>{
     require('./events/client/ready')(bot)
 })
 bot.on('message',async message=>{
+    message.member //-- GuildMember based
+    message.author //-- User based
     require('./events/guild/message')(bot,message)
 })
 const token = require(`./token.json`)
