@@ -16,6 +16,8 @@
     "discord.js": "^12.0.2",
     "express": "^4.17.1",
     "imageapi.js": "^1.0.2",
+    "int.engine": "^1.0.3",
+    "mongoose": "^5.9.9",
     "ms": "^2.1.2",
     "yt-search": "^1.1.2",
     "ytdl-core": "^2.0.1"
