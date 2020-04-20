@@ -10,11 +10,3 @@ module.exports=async (bot) => {
     })
     app.listen(8080)
 }
-/*
-Guild:message.guild.name,
-Author:{
-Tag:message.author.tag,
-ID:message.author.id
-},
-Time:ms(args[0])
-*/
