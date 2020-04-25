@@ -18,5 +18,11 @@ bot.on('message',async message=>{
     message.author //-- User based
     require('./events/guild/message')(bot,message)
 })
+bot.on('messageUpdate',async(oldMessage,newMessage)=>{
+    require('./events/guild/messageUpdate')(oldMessage,newMessage)
+})
+bot.on('messageDelete',async(message)=>{
+    require('./events/guild/messageDelete')(message)
+})
 const token = require(`./token.json`)
 bot.login(token.Token)
