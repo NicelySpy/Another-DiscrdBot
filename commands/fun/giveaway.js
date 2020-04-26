@@ -3,45 +3,28 @@ const ms = require('ms');
 module.exports={
     name: 'giveaway',
     description: 'Create a simple giveaway',
-    usage: '<time> <prize>',
+    usage: '<time> <channel> <prize>',
     category: 'fun',
     run: async(bot,message,args)=>{
-        
-        if(!message.member.permissions.has("ADMINISTRATOR")) return message.reply("You do not have admin!")
-        let timev = message.content.slice(bot.prefix.length+9)
-        if(!timev) return message.channel.send('You did not specify your time in MS!')
-        let time = parseInt(timev,10)
-      if(time< 15000)   return message.channel.send('Your time in MS has to be longer then 15 seconds! (15000 MS)')
-    
-        let prize = message.content.split(`${time}`).join("").split(`${bot.prefix}giveaway `).join("")
-        if(!prize) return message.channel.send("No prize was specified!")
-        const Embed = new MessageEmbed()
-        .setTitle('New giveaway!')
-        .setDescription(prize)
-        .setColor('RANDOM')
-        .setFooter(`This giveaway is ${ms(time)} long!`)
-        let msg = await message.channel.send(Embed)
-        await msg.react('🎉')
-        function winner(msg){
-            
-          let winner =   msg.reactions.cache.get('🎉').users.cache.random().id
-          return winner
-        };
-        function rawWinner(msg){
-            let winner =   msg.reactions.cache.get('🎉').users.cache.random()
-        }
-
-        function reactions(msg){
-            return msg.reactions.cache.size
-        }
-        function reroll(msg){
-            return winner(msg)
-        }
+        if(!args[0]) return message.channel.send(`You did not specify your time!`)
+        if(!args[0].endsWith("d")&&!args[0].endsWith("h")&&!args[0].endsWith("m")) return message.channel.send(`You did not use the correct formatting for the time!`)
+        if(isNaN(args[0][0])) return message.channel.send(`That is not a number!`)
+        let channel = message.mentions.channels.first()
+        if(!channel) return message.channel.send(`I could not find that channel in the guild!`)
+        let prize = args.slice(2).join(" ")
+        if(!prize) return message.channel.send(`No prize specified!`)
+        message.channel.send(`*Giveaway created in ${channel}*`)
+        let Embed = new MessageEmbed()
+        .setTitle(`New giveaway!`)
+        .setDescription(`The user ${message.author} is hosting a giveaway for the prize of **${prize}**`)
+        .setTimestamp(Date.now()+ms(args[0]))
+        .setColor(`BLUE`)
+        let m = await channel.send(Embed)
+        m.react("🎉")
         setTimeout(() => {
-        if(reactions(msg) < 5)return message.channel.send('I can not host a giveaway if less then 5 people have reacted!')
-           let win=winner(msg)
-               return message.channel.send(`The winner for the giveaway of **${prize}** is <@${win}> !`)
-           
-        }, time);
+            if(m.reactions.cache.size==1) return message.channel.send(`Not enough people reacted for me to start draw a winner!`)
+            let winner = m.reactions.cache.get("🎉").users.cache.filter(u=>!u.bot).random()
+            channel.send(`The winner of the giveaway for **${prize}** is... ${winner}`)
+        }, ms(args[0]));
     }
 }

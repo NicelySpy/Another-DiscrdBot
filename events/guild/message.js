@@ -6,8 +6,10 @@ module.exports=async(bot,message)=>{
 
     if (message.author.bot) return;
     if (!message.content.toLowerCase().startsWith(prefix)) return;
+
     if(!message.member) message.member = await message.guild.fetchMember(message);
     if(!message.guild) return;
+
     const args = message.content.slice(prefix.length).trim().split(/ +/g);
     const cmd = args.shift().toLowerCase();
 

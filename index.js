@@ -14,6 +14,7 @@ bot.on('ready',()=>{
     require('./events/client/ready')(bot)
 })
 bot.on('message',async message=>{
+    
     message.member //-- GuildMember based
     message.author //-- User based
     require('./events/guild/message')(bot,message)
