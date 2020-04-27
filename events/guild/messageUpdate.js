@@ -1,5 +1,6 @@
 const {MessageEmbed} = require('discord.js')
 module.exports=async(oldMessage,newMessage)=>{
+    try{
     let embed = new MessageEmbed()
     .setTitle(`New message edited`)
     .setColor(`GREEN`)
@@ -9,4 +10,5 @@ module.exports=async(oldMessage,newMessage)=>{
     let channel = oldMessage.guild.channels.cache.find(ch=>ch.name==="bot-log")
     if(!channel)return;
     channel.send(embed)
+    }catch(e){}
 }
