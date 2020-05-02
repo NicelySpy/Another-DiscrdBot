@@ -22,7 +22,11 @@ module.exports={
         let m = await channel.send(Embed)
         m.react("🎉")
         setTimeout(() => {
-            if(m.reactions.cache.size<=1) return message.channel.send(`Not enough people reacted for me to start draw a winner!`)
+            if(m.reactions.cache.get("🎉").count<=1){
+                message.channel.send(`Reactions: ${m.reactions.cache.get("🎉").count}`)
+                return message.channel.send(`Not enough people reacted for me to start draw a winner!`)
+            }
+            
             let winner = m.reactions.cache.get("🎉").users.cache.filter(u=>!u.bot).random()
             channel.send(`The winner of the giveaway for **${prize}** is... ${winner}`)
         }, ms(args[0]));
