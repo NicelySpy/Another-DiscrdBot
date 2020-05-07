@@ -5,6 +5,11 @@ module.exports = (bot) => {
            let pull = require(`../commands/${dir}/${cmd}`)
            console.log(`Loaded command ${pull.name}`)
            bot.commands.set(pull.name,pull)
+           if(cmd.aliases){
+               cmd.aliases.forEach(p=>{
+                   bot.aliases.set(p,pull)
+               })
+           }
        })
     })
 }
