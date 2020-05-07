@@ -10,7 +10,7 @@ bot.categories = fs.readdirSync("./commands/");
 ["command","server"].forEach(handler => {
     require(`./handlers/${handler}`)(bot);
 });
-bot.on('ready',()=>{
+bot.on('ready',()=>{ 
     require('./events/client/ready')(bot)
 })
 bot.on('message',async message=>{
