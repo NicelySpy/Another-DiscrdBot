@@ -16,7 +16,9 @@ bot.globalChat.collectors = new Discord.Collection();
 bot.globalChat.guilds = new Discord.Collection();
 bot.globalChat.guildsSaved = new Discord.Collection();
 bot.categories = fs.readdirSync("./commands/");
-mongoose.connect("mongodb+srv://Salvage:SalvageDev@cluster0-bsjyv.mongodb.net/Data?retryWrites=true&w=majority",{
+
+const token = require(`./token.json`)
+mongoose.connect(token.Mongo,{
     useUnifiedTopology: true,
     useNewUrlParser: true,
 });
@@ -37,5 +39,4 @@ bot.on('messageUpdate',async(oldMessage,newMessage)=>{
 bot.on('messageDelete',async(message)=>{
     require('./events/guild/messageDelete')(message)
 })
-const token = require(`./token.json`)
 bot.login(token.Token)
