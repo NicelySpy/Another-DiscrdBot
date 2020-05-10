@@ -3,6 +3,7 @@ const fs = require("fs");
 const config = require('./config.json')
 const prefix = config.prefix;
 const bot = new Discord.Client({disableMentions:'everyone'});
+const mongoose = require('mongoose')
 bot.prefix = prefix;
 bot.commands = new Discord.Collection();
 bot.aliases = new Discord.Collection();
@@ -15,6 +16,10 @@ bot.globalChat.collectors = new Discord.Collection();
 bot.globalChat.guilds = new Discord.Collection();
 bot.globalChat.guildsSaved = new Discord.Collection();
 bot.categories = fs.readdirSync("./commands/");
+mongoose.connect("mongodb+srv://Salvage:SalvageDev@cluster0-bsjyv.mongodb.net/Data?retryWrites=true&w=majority",{
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+});
 ["command","server"].forEach(handler => {
     require(`./handlers/${handler}`)(bot);
 });
