@@ -7,11 +7,18 @@ bot.prefix = prefix;
 bot.commands = new Discord.Collection();
 bot.aliases = new Discord.Collection();
 bot.snipes = new Discord.Collection();
+bot.events = new Discord.Collection();
+bot.globalChat = {}
+bot.globalChat.calls = new Discord.Collection();
+bot.globalChat.channels = new Discord.Collection();
+bot.globalChat.collectors = new Discord.Collection();
+bot.globalChat.guilds = new Discord.Collection();
+bot.globalChat.guildsSaved = new Discord.Collection();
 bot.categories = fs.readdirSync("./commands/");
 ["command","server"].forEach(handler => {
     require(`./handlers/${handler}`)(bot);
 });
-bot.on('ready',()=>{ 
+bot.on('ready',()=>{
     require('./events/client/ready')(bot)
 })
 bot.on('message',async message=>{
