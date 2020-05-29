@@ -1,2 +1,2 @@
 const Timers = new Map();
-module.exports={ Timers:Timers }
+module.exports = { Timers: Timers };

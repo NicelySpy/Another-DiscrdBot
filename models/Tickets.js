@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = new mongoose.Schema({
-  Channel: String,
   Guild: String,
-  UserID: String,
+  Tickets: Array,
 });
-module.exports = mongoose.model("leavechannel", Schema);
+module.exports = mongoose.model("Tickets", Schema);
