@@ -16,6 +16,6 @@
     "imageapi.js": "^1.0.3",
     "mongoose": "^5.9.13",
     "ms": "^2.1.2",
-    "salvage.db": "^1.0.3"
+    "salvage.db": "^1.0.6"
   }
 }
