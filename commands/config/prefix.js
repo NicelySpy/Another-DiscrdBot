@@ -4,7 +4,7 @@ module.exports = {
   description: "Set the prefix of the guild!",
   category: "config",
   run: async (bot, message, args) => {
-    if(!message.member.permissions.has("ADMINISTRATOR")) return
+    if (!message.member.permissions.has("ADMINISTRATOR")) return;
     if (!args[0])
       return message.channel.send(
         `The prefix for ${message.guild.name} is \`${
