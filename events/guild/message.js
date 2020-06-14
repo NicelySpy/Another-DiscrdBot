@@ -3,13 +3,12 @@ const { MessageEmbed } = require("discord.js");
 const { prefix } = require("../../config.json");
 const ms = require("ms");
 const db = require("../../db");
-const custom = require('../../models/custom');
+const custom = require("../../models/custom");
 module.exports = async (bot, message) => {
   if (message.author.bot) return;
-  //let newPrefix = //(await db.get(`Prefix_${message.guild.id}`))
-    //? await db.get(`Prefix_${message.guild.id}`)
-    //: prefix;
-  let newPrefix = "!"
+  let newPrefix = (await db.get(`Prefix_${message.guild.id}`))
+    ? await db.get(`Prefix_${message.guild.id}`)
+    : prefix;
   if (!message.content.toLowerCase().startsWith(newPrefix)) return;
 
   if (!message.member)
@@ -40,10 +39,13 @@ module.exports = async (bot, message) => {
       command.run(bot, message, args);
     }
   } else {
-    custom.findOne({ Guild: message.guild.id, Command: cmd},async(err,data) => {
-      if(err) throw err;
-      if(data) return message.channel.send(data.Content);
-      else return;
-    })
+    custom.findOne(
+      { Guild: message.guild.id, Command: cmd },
+      async (err, data) => {
+        if (err) throw err;
+        if (data) return message.channel.send(data.Content);
+        else return;
+      }
+    );
   }
 };

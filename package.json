@@ -14,8 +14,9 @@
     "discord.js": "^12.2.0",
     "express": "^4.17.1",
     "imageapi.js": "^1.0.3",
-    "mongoose": "^5.9.13",
+    "mongoose": "^5.9.18",
     "ms": "^2.1.2",
-    "salvage.db": "^1.0.9"
-  }
+    "salvage.db": "^1.1.2"
+  },
+  "devDependencies": {}
 }
