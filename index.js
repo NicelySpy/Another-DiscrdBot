@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const fs = require("fs");
 const config = require("./config.json");
 const prefix = config.prefix;
-const bot = new Discord.Client({ disableMentions: "everyone" });
+const bot = new Discord.Client({ disableMentions: "everyone", partials: ["REACTION"] });
 const mongoose = require("mongoose");
 bot.prefix = prefix;
 bot.commands = new Discord.Collection();
@@ -11,6 +11,7 @@ bot.snipes = new Discord.Collection();
 bot.events = new Discord.Collection();
 bot.categories = fs.readdirSync("./commands/");
 const token = require(`./token.json`);
+const message = require("./events/guild/message");
 mongoose.connect(token.Mongo, {
   useUnifiedTopology: true,
   useNewUrlParser: true,
@@ -32,4 +33,7 @@ bot.on("messageUpdate", async (oldMessage, newMessage) => {
 bot.on("messageDelete", async (message) => {
   require("./events/guild/messageDelete")(message);
 });
+bot.on('messageReactionAdd', (reaction, user) => {
+  reaction.message.channel.send(reaction.emoji.name)
+})
 bot.login(token.Token);

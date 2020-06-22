@@ -10,9 +10,9 @@ module.exports = async (bot, message) => {
     ? await db.get(`Prefix_${message.guild.id}`)
     : prefix;
   if (!message.content.toLowerCase().startsWith(newPrefix)) return;
-
   if (!message.member)
     message.member = await message.guild.fetchMember(message);
+    
   if (!message.guild) return;
   const args = message.content.slice(newPrefix.length).trim().split(/ +/g);
   const cmd = args.shift().toLowerCase();
