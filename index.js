@@ -33,7 +33,4 @@ bot.on("messageUpdate", async (oldMessage, newMessage) => {
 bot.on("messageDelete", async (message) => {
   require("./events/guild/messageDelete")(message);
 });
-bot.on('messageReactionAdd', (reaction, user) => {
-  reaction.message.channel.send(reaction.emoji.name)
-})
 bot.login(token.Token);
