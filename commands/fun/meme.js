@@ -8,7 +8,7 @@ module.exports = {
     let subreddits = ["comedyheaven", "dank", "meme", "memes"];
     let subreddit =
       subreddits[Math.floor(Math.random() * subreddits.length - 1)];
-    let img = await api(subreddit);
+    let img = await api(subreddit, true);
     const Embed = new MessageEmbed()
       .setTitle(`A meme from r/${subreddit}`)
       .setURL(`https://reddit.com/r/${subreddit}`)

@@ -10,7 +10,7 @@ module.exports = {
     if (!Subreddit)
       return message.channel.send(`You did not specify your subreddit!`);
     try {
-      let img = await api(Subreddit);
+      let img = await api(Subreddit, true);
       const Embed = new MessageEmbed()
         .setTitle(`A random image from r/${Subreddit}`)
         .setColor("RANDOM")
