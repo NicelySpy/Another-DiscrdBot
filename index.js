@@ -2,7 +2,10 @@ const Discord = require("discord.js");
 const fs = require("fs");
 const config = require("./config.json");
 const prefix = config.prefix;
-const bot = new Discord.Client({ disableMentions: "everyone", partials: ["REACTION"] });
+const bot = new Discord.Client({
+  disableMentions: "everyone",
+  partials: ["REACTION"],
+});
 const mongoose = require("mongoose");
 bot.prefix = prefix;
 bot.commands = new Discord.Collection();
@@ -32,5 +35,11 @@ bot.on("messageUpdate", async (oldMessage, newMessage) => {
 });
 bot.on("messageDelete", async (message) => {
   require("./events/guild/messageDelete")(message);
+});
+bot.on("messageReactionAdd", (reaction, user) => {
+  require("./events/guild/messageReactionAdd")(reaction, user);
+});
+bot.on("messageReactionRemove", (reaction, user) => {
+  require("./events/guild/messageReactionRemove")(reaction, user);
 });
 bot.login(token.Token);

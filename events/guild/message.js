@@ -1,10 +1,15 @@
 const Timeout = new Set();
-const { MessageEmbed } = require("discord.js");
+const { MessageEmbed, Message, Client } = require("discord.js");
 const { prefix } = require("../../config.json");
 const ms = require("ms");
 const db = require("../../db");
 const custom = require("../../models/custom");
+/**
+ * @param {Client} bot
+ * @param {Message} message
+ */
 module.exports = async (bot, message) => {
+  message.channel.messages.fetch();
   if (message.author.bot) return;
   let newPrefix = (await db.get(`Prefix_${message.guild.id}`))
     ? await db.get(`Prefix_${message.guild.id}`)
@@ -12,7 +17,7 @@ module.exports = async (bot, message) => {
   if (!message.content.toLowerCase().startsWith(newPrefix)) return;
   if (!message.member)
     message.member = await message.guild.fetchMember(message);
-    
+
   if (!message.guild) return;
   const args = message.content.slice(newPrefix.length).trim().split(/ +/g);
   const cmd = args.shift().toLowerCase();
