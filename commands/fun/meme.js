@@ -6,8 +6,7 @@ module.exports = {
   category: "fun",
   run: async (bot, message, args) => {
     let subreddits = ["comedyheaven", "dank", "meme", "memes"];
-    let subreddit =
-      subreddits[Math.floor(Math.random() * subreddits.length)];
+    let subreddit = subreddits[Math.floor(Math.random() * subreddits.length)];
     let img = await api(subreddit, true);
     const Embed = new MessageEmbed()
       .setTitle(`A meme from r/${subreddit}`)
